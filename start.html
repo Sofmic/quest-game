@@ -1,0 +1,68 @@
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>Loading...</title>
+
+<style>
+
+body {
+	background-color: black;
+}
+
+#block {
+
+	text-align: center;
+	valign: middle;
+}
+#tekst{
+
+	text-align: center;
+}
+
+</style>
+
+</head>
+<body>
+
+    <div id="block">
+	<progress id="progres" value="0" max="100"></progress>
+    </div>
+
+    <h1 id="tekst" style="color: white;">	Runner	</h1>
+    <script type="text/javascript">
+
+    function launchFullScreen(element) {
+  if(element.requestFullScreen) {
+    element.requestFullScreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullScreen) {
+    element.webkitRequestFullScreen();
+  }
+}
+
+
+	launchFullScreen(document.documentElement);
+
+    function zwieksz(){
+
+    	document.querySelector("#progres").value += 25;
+
+    }
+    
+    function ladowanie(){
+    setTimeout(zwieksz, 1000);
+    setTimeout(zwieksz, 4000);
+    setTimeout(zwieksz, 3000);
+    setTimeout(zwieksz, 3000);
+	
+	setTimeout(function(){location.replace("game.html")}, 5000);
+	}
+	ladowanie();
+
+    </script>
+
+</div>
+</body>
+</html>
