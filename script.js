@@ -1,6 +1,9 @@
 const pole = document.getElementById('blok');
 const d = pole.getContext('2d');
 
+var koniecgry = 0;
+var mozna = 0;
+var punkty = 0;
 const bohater = new Image();
 const przeszkoda = new Image();
 const obr = new Image;
@@ -96,8 +99,15 @@ function FpsCtrl(fps, cb) {
 
 
 //----------------------------------------------------------------------------------
-function rysowanie(){
+function koniec(){
+	koniecgry = 1;
+	animacja.pause;
+	mozna = 0;
+	alert("Twoj wynik to: " + punkty + " pkt.")
+}
 
+function rysowanie(){
+	if(mozna && koniecgry == 0){
 	d.clearRect(0, 0, 1000, 400);
 
 		if(zielonex < -2000)
@@ -105,18 +115,17 @@ function rysowanie(){
 		else
 			zielonex -= 5;
 		if(tamay === postacy + 15 && tamax === postacx){
-			alert("przegrales!");
-			location.reload();
+			koniec();
 		}
 		else if(tamay === postacy + 15 && tamaxx === postacx){
-			alert("przegrales!");
-			location.reload();
+			koniec();
 		}
 		else if(tamay === postacy + 15 && tamaxxx === postacx){
-			alert("przegrales!");
-			location.reload();
+			koniec();
 		}
-				
+		else{
+			punkty++;
+		}				
 
 		if( tamax > -10 )
 			tamax -= 5;
@@ -150,7 +159,7 @@ function rysowanie(){
 	d.drawImage(przeszkoda,tamaxxx,tamay);
 	d.drawImage(bohater,postacx,postacy) 
 
-}
+}}
 postac(postacx,postacy);
 tama(tamax[0]);
 tama(tamax[1]);
@@ -159,8 +168,34 @@ zielone(zielonex,zieloney);
 
 const animacja = new FpsCtrl(80, rysowanie);
 
+document.addEventListener("keydown",function(k){
+
+	if(k.key === "F1"){
+		location.reload();
+	}
+	else if(k.key === "F2"){
+		mozna = !mozna;
+	}
+	else if(k.key === "Enter"){
+		if(koniecgry == 1 && mozna == 0 )
+			punkty = 0;
+		mozna = 1;
+    	animacja.start();
+    	if (animacja.isPlaying) {
+    	     document.addEventListener('keydown',function(przycisk){
+   		      	if(wartoscSkoku === 0)
+    	     		if(przycisk.key == "ArrowUp")
+    	     			wartoscSkoku = 13;
+    	     })
+    	}
+	}
+
+
+})
+
 
 document.querySelector('#start').addEventListener('click', function() {
+	mozna = 1;
     animacja.start();
     if (animacja.isPlaying) {
          document.addEventListener('keydown',function(przycisk){

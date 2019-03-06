@@ -6,26 +6,56 @@
 
 <style>
 
-.box {
-	width: 100%;
-	height: 100%;
+
+#miejsce {
+    border: 5px;
+    border-style: solid;
+    float: left;
+}
+
+#punkty{
+    width: 40%;
+    height: 400px;
+    float: left;
+    text-align: left;
+}
+
+#ramka{
+    border-style: dashed;
+    border: 3px;
+    width: 200px;
+    height: 200px;
+    border-style: solid;
+    border-color: black;
+    margin-left:5%;
+    margin-top: 10px;
+    float: left;
 }
 
 </style>
 
 </head>
 <body>
-<div class="box">    
+  
 
     <div id="miejsce" style="background-image: url('img/tlo.png'); width: 1000; height: 400">
 	<canvas width="1000" height="400" id="blok"> // Pole do rysowania
 		Cos nie dziala
 	</canvas>
     </div>
-    <input type="button" id="start" value="START"/>
+    <div id="punkty">
+        <h1 style="text-align: center;">JUMPER</h1>
+        <div id="ramka"><h4 style="text-align: center;">Jak grac?</h4></div>
+        <div id="ramka"><h4 style="text-align: center;"></h4></div>
+        <div id="ramka"><h4 style="text-align: center;">JUMPER</h4></div>
+
+
+        </div>
+    </div>
+
+    
     
     <script src="script.js"></script>
 
-</div>
 </body>
 </html>
