@@ -1,6 +1,7 @@
 const pole = document.getElementById('blok');
 const d = pole.getContext('2d');
 
+var tablica = [0,0,0]
 var koniecgry = 0;
 var mozna = 0;
 var punkty = 0;
@@ -10,20 +11,46 @@ const obr = new Image;
 const zielen = new Image();
 obr.src = "img/nic.png";
 
-
 zielonex = 1000;
 zieloney = -60;
 
 wartoscSkoku = 0;
 
-tamax = 1500;
+tamax = 1400;
 tamaxx = 1000;
-tamaxxx = 700;
+tamaxxx = 1200;
 
 tamay = 335;
 
 postacx = 50;
 postacy = 320;
+
+function wypisz_wynik(){
+
+	document.getElementById("wynikj").innerHTML = "1: "+tablica[0] + " pkt";
+	document.getElementById("wynikd").innerHTML = "2: "+tablica[1] + " pkt";
+	document.getElementById("wynikt").innerHTML = "3: "+tablica[2] + " pkt";
+
+}
+wypisz_wynik();
+
+function dodaj_wynik(pkt){
+
+	if(tablica[0] < pkt){
+		tablica[2] = tablica[1]; 
+		tablica[1] = tablica[0];
+		tablica[0] = pkt;
+
+	}
+	else if(tablica[1] < pkt){
+		tablica[2] = tablica[1]; 
+		tablica[1] = pkt;
+	}
+	else if(tablica[2] < pkt)
+		tablica[2] = pkt;
+
+	wypisz_wynik();
+}	
 
 function zielone(x,y){
 	zielen.addEventListener("load",function(){ 
@@ -33,6 +60,7 @@ function zielone(x,y){
 	zielen.src = "img/zielen.png";
 }
 
+
 function postac(x,y){
 	bohater.addEventListener("load",function(){ 
 		d.drawImage(bohater,x,y) 
@@ -41,6 +69,7 @@ function postac(x,y){
 	bohater.src = "img/postac.png";
 }
 
+
 function tama(x){
 	przeszkoda.addEventListener("load",function(){ 
 		d.drawImage(przeszkoda,x,335); postac(postacx,postacy)
@@ -48,13 +77,6 @@ function tama(x){
 
 	przeszkoda.src = "img/przeszkoda.png";
 }
-
-
-
-
-
-//----------------------------------------------------------------------------------
-
 
 
 function FpsCtrl(fps, cb) {
@@ -98,12 +120,13 @@ function FpsCtrl(fps, cb) {
 }
 
 
-//----------------------------------------------------------------------------------
 function koniec(){
 	koniecgry = 1;
 	animacja.pause;
 	mozna = 0;
 	alert("Twoj wynik to: " + punkty + " pkt.")
+	dodaj_wynik(punkty);
+	game_restart()
 }
 
 function rysowanie(){
@@ -124,24 +147,25 @@ function rysowanie(){
 			koniec();
 		}
 		else{
+
 			punkty++;
 		}				
 
 		if( tamax > -10 )
 			tamax -= 5;
 		else
-			tamax = 900;
+			tamax = 1400 ;
 		
 
 		if( tamaxx > -10 )
 			tamaxx -= 5;
 		else
-			tamaxx = 900;
+			tamaxx = 1000;
 
 		if( tamaxxx > -10 )
 			tamaxxx -= 5;
 		else
-			tamaxxx = 900;
+			tamaxxx = 1200;
 		
 	if( wartoscSkoku > 1 ){
 		postacy -= 6;
@@ -153,6 +177,7 @@ function rysowanie(){
 	else{
 		wartoscSkoku = 0;
 	}
+
 	d.drawImage(zielen,zielonex,zieloney)
 	d.drawImage(przeszkoda,tamax,tamay);
 	d.drawImage(przeszkoda,tamaxx,tamay);
@@ -160,18 +185,41 @@ function rysowanie(){
 	d.drawImage(bohater,postacx,postacy) 
 
 }}
+
+
+function game_restart(){
+	koniecgry = 0;
+	mozna = 0;
+	punkty = 0;
+	d.clearRect(0, 0, 1000, 400);
+	zielonex = 1000;
+	wartoscSkoku = 0;
+
+	tamax = 1300;
+	tamaxx = 1000;
+	tamaxxx = 1200;
+
+	postacx = 50;
+	postac(postacx,postacy);
+	tama(tamax[0]);
+	tama(tamax[1]);
+	tama(tamax[2]);
+	
+}
+
 postac(postacx,postacy);
 tama(tamax[0]);
 tama(tamax[1]);
 tama(tamax[2]);
 zielone(zielonex,zieloney);
 
-const animacja = new FpsCtrl(80, rysowanie);
+const animacja = new FpsCtrl(80, rysowanie); 
 
-document.addEventListener("keydown",function(k){
+
+document.addEventListener("keydown",function(k){ // Reakcje na wcisniete klawisze
 
 	if(k.key === "F1"){
-		location.reload();
+		game_restart();
 	}
 	else if(k.key === "F2"){
 		mozna = !mozna;
@@ -189,20 +237,5 @@ document.addEventListener("keydown",function(k){
     	     })
     	}
 	}
-
-
 })
-
-
-document.querySelector('#start').addEventListener('click', function() {
-	mozna = 1;
-    animacja.start();
-    if (animacja.isPlaying) {
-         document.addEventListener('keydown',function(przycisk){
-         	if(wartoscSkoku === 0)
-         		if(przycisk.key == "ArrowUp")
-         			wartoscSkoku = 13;
-         })
-    }
-});
 

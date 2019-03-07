@@ -23,7 +23,7 @@
 #ramka{
     border-style: dashed;
     border: 3px;
-    width: 200px;
+    width: 300px;
     height: 200px;
     border-style: solid;
     border-color: black;
@@ -44,16 +44,24 @@
 	</canvas>
     </div>
     <div id="punkty">
-        <h1 style="text-align: center;">JUMPER</h1>
-        <div id="ramka"><h4 style="text-align: center;">Jak grac?</h4></div>
-        <div id="ramka"><h4 style="text-align: center;"></h4></div>
-        <div id="ramka"><h4 style="text-align: center;">JUMPER</h4></div>
+        
 
+        <h1 style="text-align: center;">JUMPER</h1>
+        <div id="ramka">
+            <h4 style="text-align: center;">Jak grac?</h4>
+            <p style="text-align: center;">Enter - Start gry</p>
+            <p style="text-align: center;">F1 - Restart gry</p>
+            <p style="text-align: center;">F2 - Zatrzymaj/ Kontynuuj</p>
+            <p style="text-align: center;">↑ - Skok</p>
 
         </div>
+        <div id="ramka"><h4 style="text-align: center;"></h4>
+            <h4 style="text-align: center;">Najlepsze wyniki</h4>
+            <p id="wynikj" style="text-align: left; margin-left: 30px">1: </p>
+            <p id="wynikd" style="text-align: left; margin-left: 30px">2: </p>
+            <p id="wynikt" style="text-align: left; margin-left: 30px">3: </p>
+        </div>
     </div>
-
-    
     
     <script src="script.js"></script>
 
